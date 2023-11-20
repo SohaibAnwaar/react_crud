@@ -1,46 +1,26 @@
-import React from "react";
-import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import "./App.css";
-import Login from "./Components/Login";
-import Register from "./Components/Register";
-import EventPage from "./Components/EventPage";
-import EventForm from "./Components/EventForm";
-import {getUser} from "./user";
+import NavBar from "./components/NavBar";
+import { BrowserRouter as Router,  Route, Routes } from "react-router-dom";
+import { Input } from "./components/Pages/Input";
+import { Output } from "./components/Pages/Output";
+
 
 function App() {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Login/>}>
-                </Route>
-                <Route path="/register" element={<Register/>}>
-                </Route>
-                <Route path="/events" element={
-                    <PrivateRoute>
-                        <EventPage/>
-                    </PrivateRoute>
-                }>
-                </Route>
-                <Route path="/events/new" element={
-                    <PrivateRoute>
-                        <EventForm/>
-                    </PrivateRoute>
-                }>
-                </Route>
-                <Route path="/events/:id" element={
-                    <PrivateRoute>
-                        <EventForm/>
-                    </PrivateRoute>
-                }>
-                </Route>
-            </Routes>
-        </BrowserRouter>
-    );
-}
+  return (
+    <>
+      <Router>
+        <NavBar />
 
-function PrivateRoute({children}) {
-    const user = getUser();
-    return user ? children : <Navigate to="/"/>;
+        <div className="pages">
+          <Routes>
+            <Route path="/" element={<Input />} />
+            <Route path="/output" element={<Output />} />
+
+          </Routes>
+        </div>
+      </Router>
+  </>
+  );
 }
 
 export default App;
